@@ -1,0 +1,24 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.main {
+    text-align: center;
+}
+
+.actions {
+    margin: 1em;
+}
+
+.feed-url-input {
+    min-width: 250px;
+}
+
+.feeds, .feed {
+    border: 1px solid black;
+    min-height: 480px;
+}
+
+footer.main {
+    margin-top: 1em;
+}

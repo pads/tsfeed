@@ -1,0 +1,19 @@
+type: text/html
+
+<!doctype html>
+<html>
+    <head>
+        <title>SiteInfo</title>
+        <link rel="stylesheet" type="text/css" href="/bags/common/tiddlers/normalize.css" />
+    </head>
+    <body>
+        <h1>About Space</h1>
+        <ul>
+            <li>Name: tsfeed</li>
+            <li>Author: pads</li>
+            <li>Version: 0.1.0</li>
+        </ul>
+        <h3>Description</h3>
+        <p>RSS feed reader TiddlySpace app</p>
+    </body>
+</html>
