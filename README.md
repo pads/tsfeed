@@ -1,4 +1,4 @@
-# twfeed
+# tsfeed
 
 RSS feed reader application for TiddlySpace
 
