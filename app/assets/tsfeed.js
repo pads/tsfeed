@@ -9,6 +9,10 @@ addFeedButton.addEventListener("click", function () {
     addFeed(feedUrlInput.value);
 });
 
+function removeFeed() {
+    this.parentNode.parentNode.parentNode.removeChild(this.parentNode.pare);
+}
+
 function addFeed(feedUrl) {
 
     var feed  = new google.feeds.Feed(feedUrl);
@@ -18,14 +22,31 @@ function addFeed(feedUrl) {
         if(result.error) {
             alert(result.error.message);
         } else {
-            var feedContainer = document.createElement("section");
-            feedContainer.setAttribute("class", "feed");
-            for (var i = 0; i < result.feed.entries.length; i++) {
-                feedContainer.appendChild(createEntryItem(result.feed.entries[i]));
-            }
-            feedsContainer.appendChild(feedContainer);
+            createFeed(result.feed.title, result.feed.entries);
         }
     });
+}
+
+function createFeed(title, entries) {
+
+    var feedContainer = document.createElement("section");
+    var feedHeader = document.createElement("header");
+    var feedTitle = document.createElement("h1");
+    var removeButton = document.createElement("button");
+
+    feedContainer.setAttribute("class", "feed");
+    feedTitle.appendChild(document.createTextNode(title));
+    feedHeader.appendChild(feedTitle);
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.addEventListener("click", removeFeed);
+    feedHeader.appendChild(removeButton);
+    feedContainer.appendChild(feedHeader);
+
+    for (var i = 0; i < entries.length; i++) {
+        feedContainer.appendChild(createEntryItem(entries[i]));
+    }
+
+    feedsContainer.appendChild(feedContainer);
 }
 
 function createEntryItem(entry) {
@@ -43,6 +64,7 @@ function createEntryItem(entry) {
 
     entryTitle.appendChild(document.createTextNode(entry.title));
     entryLink.setAttribute("href", entry.link);
+    entryLink.setAttribute("target", "_blank");
     entryLink.appendChild(entryTitle);
 
     entryContent.appendChild(document.createTextNode(entry.contentSnippet));
@@ -59,6 +81,7 @@ function createEntryItem(entry) {
     entryFooter.appendChild(ul);
 
     entryHeader.appendChild(entryLink);
+    entryItem.setAttribute("class", "entry");
     entryItem.appendChild(entryHeader);
     entryItem.appendChild(entryContent);
     entryItem.appendChild(entryFooter);

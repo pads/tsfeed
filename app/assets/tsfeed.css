@@ -14,9 +14,43 @@ body {
     min-width: 250px;
 }
 
+.feeds {
+    display: flex;
+    display: -webkit-flex;
+}
+
 .feeds, .feed {
     border: 1px solid black;
     min-height: 480px;
+}
+
+.feed {
+    max-width: 320px;
+    padding: 0 0.5em 0.5em 0.5em;
+}
+
+.feed header {
+    display: flex;
+    display: -webkit-flex;
+}
+
+.feed button {
+    margin-top: 0.5em;
+    height: 20px;
+}
+
+.entry {
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-top: 0.5em;
+}
+
+.feed p {
+    word-wrap: break-word;
+}
+
+.feed ul {
+    padding-left: 1em;
 }
 
 footer.main {
