@@ -47,7 +47,8 @@ module.exports = function(grunt) {
                 "sub": true,
                 "globals": {
                     "google": true,
-                    "alert": true
+                    "alert": true,
+                    "tiddlyweb": true
                 }
             }
         }
