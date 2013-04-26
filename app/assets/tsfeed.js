@@ -2,51 +2,57 @@ var addFeedButton = document.getElementById("add-feed-button");
 var feedUrlInput = document.getElementById("feed-url-input");
 var feedsContainer = document.getElementById("feeds");
 
-google.load("feeds", "1");
+var loadedFeeds = [];
 
-addFeedButton.addEventListener("click", function () {
+function getSpaceName() {
 
-    addFeed(feedUrlInput.value);
-});
-
-function removeFeed() {
-    this.parentNode.parentNode.parentNode.removeChild(this.parentNode.pare);
+    var status = tiddlyweb.status;
+    if(status.space) {
+        return status.space.name;
+    } else {
+        return status.username;
+    }
 }
 
-function addFeed(feedUrl) {
+function getFeedsTiddlerUrl() {
+    return "bags/" + getSpaceName() + "_public/tiddlers/tsfeeds";
+}
 
-    var feed  = new google.feeds.Feed(feedUrl);
-    feed.setNumEntries(20);
+function putTiddler(data, callback) {
 
-    feed.load(function (result) {
-        if(result.error) {
-            alert(result.error.message);
-        } else {
-            createFeed(result.feed.title, result.feed.entries);
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 204) {
+            if(callback) {
+                callback();
+            }
         }
+    };
+    request.open("PUT", getFeedsTiddlerUrl(), true);
+    request.setRequestHeader("Content-type","application/json");
+    request.send(JSON.stringify({ text: data, type: "text/plain" }));
+}
+
+function saveFeed(url) {
+
+    loadedFeeds.push(url);
+    var feeds = loadedFeeds.join("\n");
+    putTiddler(feeds, function () {
+        alert("added");
     });
 }
 
-function createFeed(title, entries) {
+function removeFeed() {
+    var button = this;
+    var url = button.getAttribute("data");
 
-    var feedContainer = document.createElement("section");
-    var feedHeader = document.createElement("header");
-    var feedTitle = document.createElement("h1");
-    var removeButton = document.createElement("button");
-
-    feedContainer.setAttribute("class", "feed");
-    feedTitle.appendChild(document.createTextNode(title));
-    feedHeader.appendChild(feedTitle);
-    removeButton.appendChild(document.createTextNode("X"));
-    removeButton.addEventListener("click", removeFeed);
-    feedHeader.appendChild(removeButton);
-    feedContainer.appendChild(feedHeader);
-
-    for (var i = 0; i < entries.length; i++) {
-        feedContainer.appendChild(createEntryItem(entries[i]));
-    }
-
-    feedsContainer.appendChild(feedContainer);
+    var feeds = loadedFeeds.filter(function (element) {
+        return (element !== url);
+    });
+    feeds = feeds.join("\n");
+    putTiddler(feeds, function () {
+        button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode);
+    });
 }
 
 function createEntryItem(entry) {
@@ -88,3 +94,66 @@ function createEntryItem(entry) {
 
     return entryItem;
 }
+
+function createFeed(title, entries, url) {
+
+    var feedContainer = document.createElement("section");
+    var feedHeader = document.createElement("header");
+    var feedTitle = document.createElement("h1");
+    var removeButton = document.createElement("button");
+
+    feedContainer.setAttribute("class", "feed");
+    feedTitle.appendChild(document.createTextNode(title));
+    feedHeader.appendChild(feedTitle);
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute("data", url);
+    removeButton.addEventListener("click", removeFeed);
+    feedHeader.appendChild(removeButton);
+    feedContainer.appendChild(feedHeader);
+
+    for (var i = 0; i < entries.length; i++) {
+        feedContainer.appendChild(createEntryItem(entries[i]));
+    }
+
+    feedsContainer.appendChild(feedContainer);
+}
+
+function addFeed(feedUrl, save) {
+
+    var feed  = new google.feeds.Feed(feedUrl);
+    feed.setNumEntries(20);
+
+    feed.load(function (result) {
+        if(result.error) {
+            alert(result.error.message);
+        } else {
+            createFeed(result.feed.title, result.feed.entries, result.feed.feedUrl);
+            if(save) {
+                saveFeed(result.feed.feedUrl);
+            }
+        }
+    });
+}
+
+function loadFeeds() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if(request.readyState === 4 && request.status === 200) {
+            var feeds = request.responseText.split("\n");
+            loadedFeeds = feeds;
+            for(var i = 0; i < feeds.length; i++) {
+                addFeed(feeds[i]);
+            }
+        }
+    };
+    request.open("GET", getFeedsTiddlerUrl(), true);
+    request.send();
+}
+
+addFeedButton.addEventListener("click", function () {
+
+    addFeed(feedUrlInput.value, true);
+});
+
+google.load("feeds", "1");
+google.setOnLoadCallback(loadFeeds);
