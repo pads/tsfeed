@@ -1,4 +1,5 @@
 @import "compass/utilities/general/float";
+@import "compass/css3/border-radius";
 @import "blueprint/buttons";
 
 // Use the following HTML code to place the buttons on your site:
@@ -34,6 +35,7 @@ button {
   @include button-colors;
   @include button-hover-colors;
   @include button-active-colors;
+  @include border-radius(1.5rem);
 }
 
 // We can change the colors for buttons of certain classes, etc.
