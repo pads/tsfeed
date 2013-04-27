@@ -106,6 +106,7 @@ function createFeed(title, entries, url) {
     feedTitle.appendChild(document.createTextNode(title));
     feedHeader.appendChild(feedTitle);
     removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute("class", "negative");
     removeButton.setAttribute("data", url);
     removeButton.addEventListener("click", removeFeed);
     feedHeader.appendChild(removeButton);
@@ -150,6 +151,7 @@ function loadFeeds() {
     request.send();
 }
 
+addFeedButton.setAttribute("class", "positive");
 addFeedButton.addEventListener("click", function () {
 
     addFeed(feedUrlInput.value, true);

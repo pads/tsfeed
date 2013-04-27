@@ -51,6 +51,15 @@ module.exports = function(grunt) {
                     "tiddlyweb": true
                 }
             }
+        },
+        compass: {
+            dist: {
+                options: {
+                    sassDir: 'sass',
+                    cssDir: 'app/assets',
+                    environment: 'production'
+                }
+            }
         }
     });
 
@@ -69,4 +78,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-compass");
 };

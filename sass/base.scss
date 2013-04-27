@@ -1,0 +1,12 @@
+@import "compass/typography/links/unstyled-link";
+@import "compass/typography/links/link-colors";
+
+a {
+  //normal
+  //hover
+  //active
+  //visited
+  //focus
+  @include unstyled-link();
+  @include link-colors(#00c, #0cc, #20cc22, #cc3bc9, #cc0919);
+}

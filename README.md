@@ -16,7 +16,21 @@ The application reads the list to initialise the page.
 It appends a feed URL to the list after it is added (TODO).
 It removes a feed URL from the list after it is removed (TODO).
 
-More to follow...
+# Contributing
+
+## Requires
+
+* Node
+* Grunt
+* Ruby
+* Compass
+
+## Setup
+
+`npm install`
+`gem install compass`
+
+Run `grunt --help` to see available project tasks.
 
 # To Do
 
