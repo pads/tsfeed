@@ -2,7 +2,8 @@
 
 RSS feed reader application for TiddlySpace
 
-I'm hacking this together as another dog-food exercise for TiddlySpace.
+I'm hacking this together as another dog-food exercise for TiddlySpace.  For an example visit:
+http://tsfeed.tiddlyspace.com/tsfeed
 
 # Managing Feeds
 
@@ -13,8 +14,8 @@ It is a plain text tiddler with each URL on a new line.  It can be edited by han
     http://another.site.com/feed.atom
 
 The application reads the list to initialise the page.
-It appends a feed URL to the list after it is added (TODO).
-It removes a feed URL from the list after it is removed (TODO).
+It appends a feed URL to the list after it is added.
+It removes a feed URL from the list after it is removed.
 
 # Contributing
 
