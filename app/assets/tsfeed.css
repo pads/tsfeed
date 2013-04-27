@@ -1,14 +1,22 @@
 html {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 62.5%;
+    background-color: #0082af;
+}
+
+input {
+    padding: 0.5rem;
+    border-radius: 1.5rem;
 }
 
 .main {
+    color: white;
     text-align: center;
     font-size: 2rem;
 }
 
 .actions {
+    background-color: white;
     margin: 1rem;
 }
 
@@ -17,17 +25,19 @@ html {
 }
 
 .feeds {
+    background-color: white;
     display: flex;
     display: -webkit-flex;
     min-height: 480px;
 }
 
 .feeds, .actions {
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 1rem;
 }
 
 .actions {
+    margin: 0 0 1.5rem 0;
     padding: 1.5rem;
 }
 
