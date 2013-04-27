@@ -141,9 +141,11 @@ function loadFeeds() {
     request.onreadystatechange = function () {
         if(request.readyState === 4 && request.status === 200) {
             var feeds = request.responseText.split("\n");
-            loadedFeeds = feeds;
-            for(var i = 0; i < feeds.length; i++) {
-                addFeed(feeds[i]);
+            if(feeds[0] !== "") {
+                loadedFeeds = feeds;
+                for(var i = 0; i < feeds.length; i++) {
+                    addFeed(feeds[i]);
+                }
             }
         }
     };
