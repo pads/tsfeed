@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "RSS feed reader TiddlySpace app",
   "author": "Ben Paddock",
+  "license": "MIT",
   "main": "Gruntfile.js",
   "devDependencies": {
     "grunt": "~0.4.0",
